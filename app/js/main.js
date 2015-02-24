@@ -1,8 +1,8 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var Cat = require('./components/cat.jsx');
+var Instagrannar = require('./components/instagrannar.jsx');
 
 window.React = React; 
 
-React.render(<Cat/>, document.body);
+React.render(<Instagrannar/>, document.body);
