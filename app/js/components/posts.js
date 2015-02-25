@@ -20,10 +20,9 @@ module.exports = React.createClass({
     xhr.send();
   },
   render: function () {
-    console.log(this.state.allPosts);
     var posts = this.state.allPosts.map(function (post, i) {
       return (
-        <Post key={i} data={post}></Post>
+        <Post key={i} post={post}></Post>
       );
     });
     

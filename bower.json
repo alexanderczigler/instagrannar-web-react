@@ -1,8 +1,8 @@
 {
-  "name": "ingr-web-react",
-  "version": "0.0.1",
+  "name": "Instagrannar",
+  "version": "0.0.0",
   "authors": [
-    "ilix <me@ilix.se>"
+    "Rickard <rickard.laurin@gmail.com>"
   ],
   "license": "MIT",
   "ignore": [
@@ -13,6 +13,7 @@
     "tests"
   ],
   "dependencies": {
-    "react": "~0.12.2"
+    "mrwhite-scss-mixins": "~0.10.0",
+    "bootstrap-sass": "~3.3.3"
   }
 }
