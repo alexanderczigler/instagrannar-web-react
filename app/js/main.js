@@ -2,7 +2,7 @@
 
 var React = require('react');
 
-var Instagrannar = require('./components/instagrannar.jsx');
+var Instagrannar = require('./components/instagrannar');
 
 window.React = React; 
 

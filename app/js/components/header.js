@@ -6,12 +6,12 @@ module.exports = React.createClass({
   render: function () {
     return (
       <div>
-		  <header class="banner" role="banner">
-		    <div class="container">
-		      <div class="row">
-		        <div class="col-lg-12">
-		          <div class="site-title">
-		            <a class="brand" href="/">Instagrannar</a>
+		  <header className="banner" role="banner">
+		    <div className="container">
+		      <div className="row">
+		        <div className="col-lg-12">
+		          <div className="site-title">
+		            <a className="brand" href="/">Instagrannar</a>
 		          </div>
 		        </div>
 		      </div>
