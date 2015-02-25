@@ -1,8 +1,8 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var Cat = require('./components/cat.jsx');
+var Posts = require('./components/posts');
 
 window.React = React; 
 
-React.render(<Cat/>, document.body);
+React.render(<Posts url="http://localhost:3000/pictures/18.07277796549827/59.33369110415745/350/-"/>, document.body);
