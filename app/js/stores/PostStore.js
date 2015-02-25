@@ -11,6 +11,7 @@ var PostStore = assign({}, EventEmitter.prototype, {
     xhr.open('get', url, true);
     xhr.onload = function() {
       var result = JSON.parse(xhr.responseText);
+      _posts = result.data;
       return result.data;
     }.bind(this);
     xhr.send();
