@@ -1,0 +1,21 @@
+// ------------------------------------------------------------
+// Header
+//
+// ------------------------------------------------------------
+
+.header {
+  background: $color--header-footer-background;
+  border-bottom: 1px solid #9a9a9a;
+  padding: 20px 0 10px;
+  text-align: center;
+}
+
+.header__title {
+  font-family: $font-family--brand;
+  font-size: $font-size--h1;
+  text-transform: uppercase;
+}
+
+.header__title-link {
+  color: $color--text !important;
+}

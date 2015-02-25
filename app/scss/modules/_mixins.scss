@@ -1,0 +1,30 @@
+// ------------------------------------------------------------
+// Mixins
+//
+// ------------------------------------------------------------
+
+//
+// Return whichever color of $light or $dark that contrasts
+// the best with the given $color
+// 
+// @param {color} - Color to contrast with
+// @param {color} - Dark color (default: #000)
+// @param {color} - Light color (default: #fff)
+// 
+// --------------------------------------------------
+$color-dark-default: #000;
+$color-light-default: #fff;
+
+@function contrast-color($color, $dark: $color-dark-default, $light: $color-light-default) {
+
+  @if $color == null {
+    @return null;
+  } @else {
+    $color-brightness: brightness($color);
+    $dark-brightness: brightness($dark);
+    $light-brightness: brightness($light);
+
+    @return if(abs($color-brightness - $light-brightness) > abs($color-brightness - $dark-brightness), $light, $dark);
+  }
+}
+

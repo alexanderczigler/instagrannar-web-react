@@ -1,0 +1,61 @@
+// ------------------------------------------------------------
+// Posts
+//
+// ------------------------------------------------------------
+
+.posts {
+  display: flex;
+  flex-wrap: wrap;
+  margin: $spacing * 2 auto;
+  max-width: $width;
+
+  @include mobile {
+    padding: $spacing;
+  }
+}
+
+.posts__post {
+  margin-bottom: $spacing;
+  overflow: hidden;
+  position: relative;
+
+  @include desktop {
+    margin-bottom: 0;
+    
+    &:nth-child(4n) { margin-right: 0; }
+    &:nth-child(n+5) { margin-top: 1%; }
+  }
+
+  &:before {
+    @include position(top, left, 0, 0, absolute, true);
+    @include transition(background, 300ms, ease-in-out);
+
+    background: none;
+    content: '';
+    z-index: 1;
+  }
+
+  &:hover {
+    .posts__image {
+      @include transform('rotate(-5deg) scale(1.2)');
+    }
+
+    &:before {
+      background: rgba(0, 0, 0, .8);
+    }
+
+    &:after {
+      @include center(both);
+
+      color: #fff;
+      content: attr(data-user);
+      z-index: 2;
+    }
+  }
+}
+
+.posts__image {
+  @include transition(all, 300ms, ease-in-out);
+
+  max-width: 100%;
+}
