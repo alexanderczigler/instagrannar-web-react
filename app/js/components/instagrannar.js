@@ -14,7 +14,7 @@ module.exports = React.createClass({
         <Header />
         <Map />
         <SuggestedLocation />
-        <Posts url="http://instagrannar.se:3000/pictures?lng=18.119175068725554&lat=59.33500399999999&dst=350&max_ts=&min_ts=/-"/>
+        <Posts url="http://instagrannar.se:3000/pictures?lng=18.056288&lat=59.33389&dst=350&max_ts=&min_ts=/-"/>
         <Footer />
       </div>
     );

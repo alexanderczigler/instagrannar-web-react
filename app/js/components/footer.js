@@ -5,39 +5,24 @@ var React = require('react');
 module.exports = React.createClass({
   render: function () {
     return (
-      <footer className="content-info" role="contentinfo">
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-3">
-              <div className="copyright">Instagrannar<br/>
-                Copyright &copy;2014
-              </div>
+      <footer className="footer">
+        <div className="row cf">
+          <div className="col-4">
+            <div className="copyright">Instagrannar<br/>
+              Copyright &copy;2014
             </div>
+          </div>
 
-            <section className="widget col-sm-3 text-2 widget_text">
-              <h3 className="widget-title">Kontakt</h3>
+          <div className="col-4">
+            <a href="mailto:hej@instagrannar.se">hej@instagrannar.se</a>
+          </div>
 
-              <div className="textwidget">
-                <a href="mailto:hej@instagrannar.se">hej@instagrannar.se</a>
-              </div>
-            </section>
+          <div className="col-4">
+            <a href="/#/annonsering">Annonsering</a>
+          </div>
 
-            <section className="widget col-sm-3 text-2 widget_text">
-              <h3 className="widget-title">&nbsp;</h3>
-
-              <div className="textwidget">
-                <a href="/#/annonsering">Annonsering</a>
-              </div>
-            </section>
-
-            <section className="widget col-sm-3 text-2 widget_text">
-              <h3 className="widget-title">&nbsp;</h3>
-
-              <div className="textwidget">
-                <a href="/#/legal">Juridisk info</a>
-              </div>
-            </section>
-
+          <div className="col-4">
+            <a href="/#/legal">Juridisk info</a>
           </div>
         </div>
       </footer>
