@@ -35,22 +35,35 @@
     z-index: 1;
   }
 
+  &:after {
+    @include center(both);
+    @include transition(opacity, 300ms, ease-in-out);
+
+    color: #fff;
+    content: attr(data-user);
+    opacity: 0;
+    z-index: 2;
+  }
+
   &:hover {
     .posts__image {
       @include transform('rotate(-5deg) scale(1.2)');
     }
 
-    &:before {
-      background: rgba(0, 0, 0, .8);
-    }
+    &:before { background: rgba(0, 0, 0, .8); }
+    &:after { opacity: 1; }
+  }
+}
 
-    &:after {
-      @include center(both);
+.posts__post--instagrannar {
+  background: rgb(0, 0, 0);
 
-      color: #fff;
-      content: attr(data-user);
-      z-index: 2;
-    }
+  &:after {
+    @include center(both);
+
+    color: #fff;
+    content: attr(data-user);
+    opacity: 1;
   }
 }
 
