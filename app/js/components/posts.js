@@ -27,7 +27,7 @@ module.exports = React.createClass({
     });
     
     return (
-      <div className="posts">
+      <div className="posts cf">
         {posts}
       </div>
     );
