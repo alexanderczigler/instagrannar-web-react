@@ -24,7 +24,7 @@ gulp.task('copy', function() {
       .pipe(gulp.dest('dist'));
 });
 
-gulp.task('default',['browserify', 'copy', 'webserver']);
+gulp.task('default',['browserify', 'copy', 'webserver', 'watch']);
 
 gulp.task('watch', function () {
   gulp.watch(['./app/js/**/*.jsx', './app/js/**/*.js'], ['browserify']);
