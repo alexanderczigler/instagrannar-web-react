@@ -78,7 +78,7 @@ gulp.task('scss', function () {
 //
 // Tasks
 // --------------------------------------------------
-gulp.task('default',['browserify', 'copy', 'webserver', 'scss-lint', 'scss']);
+gulp.task('default',['browserify', 'copy', 'webserver', 'scss-lint', 'scss', 'watch']);
 
 gulp.task('watch', function () {
   gulp.watch(['./app/scss/**/*.scss'], ['scss-lint', 'scss']);

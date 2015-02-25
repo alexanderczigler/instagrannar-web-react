@@ -5,7 +5,9 @@ var React = require('react');
 module.exports = React.createClass({
   render: function () {
     return (
-      <div> Meow </div>
+      <div className="posts__post">
+        <img src={this.props.data.images.thumbnail.url} />
+      </div>
     );
   }
 });
