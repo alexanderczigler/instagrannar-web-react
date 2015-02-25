@@ -3,6 +3,7 @@
 var React = require('react');
 var Post = require('./post');
 var PostStore = require('../stores/PostStore');
+var AdvertisementStore = require('../stores/AdvertisementStore');
 
 module.exports = React.createClass({
   getInitialState: function () {
@@ -20,7 +21,9 @@ module.exports = React.createClass({
     xhr.send();
   },
   render: function () {
-    var posts = this.state.allPosts.map(function (post, i) {
+    var p = this.state.allPosts;
+    p.splice(AdvertisementStore.randomPosition(p.length), 0, AdvertisementStore.get());
+    var posts = p.map(function (post, i) {
       return (
         <Post key={i} post={post}></Post>
       );
