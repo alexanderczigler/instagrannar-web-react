@@ -2,6 +2,7 @@
 
 var React = require('react');
 var PostStore = require('../stores/PostStore');
+var LocationActions = require('../actions/LocationActions');
 
 module.exports = React.createClass({
   getDefaultProps: function () {
@@ -22,7 +23,10 @@ module.exports = React.createClass({
 
       var mapChange = function () {
         var ll = map.getCenter();
-        PostStore.getAll('http://instagrannar.se:3000/pictures?lng='+ ll.lng() + '&lat=' + ll.lat() + '&dst=350&max_ts=&min_ts=/-');
+        LocationActions.getByLocation({
+          longitude: ll.lng(),
+          latitude: ll.lat()
+        });
       };
 
       google.maps.event.addListener(map, 'dragend', mapChange);
