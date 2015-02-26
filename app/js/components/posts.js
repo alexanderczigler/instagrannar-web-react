@@ -4,27 +4,31 @@ var React = require('react');
 var Post = require('./post');
 var Loader = require('./loader');
 var PostStore = require('../stores/PostStore');
+var LocationsActions = require('../actions/LocationActions');
 var AdvertisementStore = require('../stores/AdvertisementStore');
 
 module.exports = React.createClass({
   getInitialState: function () {
     return {
-      allPosts: [],
-      isLoaded: false
-    }
+      allPosts: PostStore.getAll()
+    };
   },
+
   componentWillMount: function () {
-    var xhr = new XMLHttpRequest();
-    xhr.open('get', this.props.url, true);
-    xhr.onload = function() {
-      var result = JSON.parse(xhr.responseText);
-      this.setState({
-        allPosts: result.data,
-        isLoaded: true
-      });
-    }.bind(this);
-    xhr.send();
+    LocationsActions.getByLocation({
+      longitude: 18.056288,
+      latitude: 59.33389
+    });
   },
+
+  componentDidMount: function() {
+    PostStore.addChangeListener(this._onChange);
+  },
+
+  componentWillUnmount: function() {
+    PostStore.removeChangeListener(this._onChange);
+  },
+
   render: function () {
     var p = this.state.allPosts;
     p.splice(AdvertisementStore.randomPosition(p.length), 0, AdvertisementStore.get());
@@ -39,5 +43,12 @@ module.exports = React.createClass({
         {this.state.isLoaded ? <div className="posts">{posts}</div> : <Loader />}
       </div>
     );
+  },
+
+  _onChange: function() {
+    this.setState({
+      allPosts: PostStore.getAll(),
+      isLoaded: true
+    });
   }
 });
