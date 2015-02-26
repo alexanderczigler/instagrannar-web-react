@@ -24,34 +24,34 @@
     
     &:nth-child(4n) { margin-right: 0; }
     &:nth-child(n+5) { margin-top: 1%; }
-  }
 
-  &:before {
-    @include position(top, left, 0, 0, absolute, true);
-    @include transition(background, 300ms, ease-in-out);
+    &:before {
+      @include position(top, left, 0, 0, absolute, true);
+      @include transition(background, 300ms, ease-in-out);
 
-    background: none;
-    content: '';
-    z-index: 1;
-  }
-
-  &:after {
-    @include center(both);
-    @include transition(opacity, 300ms, ease-in-out);
-
-    color: #fff;
-    content: attr(data-user);
-    opacity: 0;
-    z-index: 2;
-  }
-
-  &:hover {
-    .posts__image {
-      @include transform('rotate(-5deg) scale(1.2)');
+      background: none;
+      content: '';
+      z-index: $z-index-1;
     }
 
-    &:before { background: rgba(0, 0, 0, .8); }
-    &:after { opacity: 1; }
+    &:after {
+      @include center(both);
+      @include transition(opacity, 300ms, ease-in-out);
+
+      color: #fff;
+      content: attr(data-user);
+      opacity: 0;
+      z-index: $z-index-2;
+    }
+
+    &:hover {
+      .posts__image {
+        @include transform('rotate(-5deg) scale(1.2)');
+      }
+
+      &:before { background: rgba(0, 0, 0, .8); }
+      &:after { opacity: 1; }
+    }
   }
 }
 

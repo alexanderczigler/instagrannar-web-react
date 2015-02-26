@@ -2,13 +2,15 @@
 
 var React = require('react');
 var Post = require('./post');
+var Loader = require('./loader');
 var PostStore = require('../stores/PostStore');
 var AdvertisementStore = require('../stores/AdvertisementStore');
 
 module.exports = React.createClass({
   getInitialState: function () {
     return {
-      allPosts: []
+      allPosts: [],
+      isLoaded: false
     }
   },
   componentWillMount: function () {
@@ -16,7 +18,10 @@ module.exports = React.createClass({
     xhr.open('get', this.props.url, true);
     xhr.onload = function() {
       var result = JSON.parse(xhr.responseText);
-      this.setState({ allPosts: result.data });
+      this.setState({
+        allPosts: result.data,
+        isLoaded: true
+      });
     }.bind(this);
     xhr.send();
   },
@@ -30,8 +35,8 @@ module.exports = React.createClass({
     });
     
     return (
-      <div className="posts cf">
-        {posts}
+      <div className="posts__wrapper">
+        {this.state.isLoaded ? <div className="posts">{posts}</div> : <Loader />}
       </div>
     );
   }
