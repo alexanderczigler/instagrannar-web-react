@@ -15,10 +15,7 @@ module.exports = React.createClass({
   },
 
   componentWillMount: function () {
-    LocationsActions.getByLocation({
-      longitude: 18.056288,
-      latitude: 59.33389
-    });
+    LocationsActions.getByLocation();
   },
 
   componentDidMount: function() {
