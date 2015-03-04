@@ -5,12 +5,17 @@
 
 .row {
   display: flex;
+  flex-wrap: wrap;
   margin: 0 auto;
-  width: $width;
+  max-width: $width;
 }
 
 .col-4 {
   width: 100%;
+
+  @include mobile {
+    margin-top: $spacing;
+  }
 
   @include desktop {
     margin-right: 1%;
