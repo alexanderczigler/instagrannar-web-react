@@ -8,8 +8,8 @@ module.exports = React.createClass({
   getDefaultProps: function () {
       return {
           initialZoom: 8,
-          mapCenterLat: 43.6425569,
-          mapCenterLng: -79.4073126,
+          mapCenterLat: 59.33389,
+          mapCenterLng: 18.056288
       };
   },
   componentDidMount: function (rootNode) {
