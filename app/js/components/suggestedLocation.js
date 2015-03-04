@@ -14,7 +14,9 @@ module.exports = React.createClass({
 
     return (
       <div className="location">
-        <div onClick={this.getByLocation.bind(this, location)}>{location.name}</div>
+        <a onClick={this.getByLocation.bind(this, location)}>
+          Slut på idéer? Spana in vad som händer i {location.name}
+        </a>
       </div>
     );
   }
