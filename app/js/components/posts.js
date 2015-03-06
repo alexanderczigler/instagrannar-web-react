@@ -10,12 +10,12 @@ var AdvertisementStore = require('../stores/AdvertisementStore');
 module.exports = React.createClass({
   getInitialState: function () {
     return {
-      allPosts: PostStore.getAll()
+      allPosts: []
     };
   },
 
   componentWillMount: function () {
-    LocationsActions.getByLocation();
+    LocationsActions.getByLocation('usersPosition');
   },
 
   componentDidMount: function() {

@@ -49,7 +49,7 @@ AppDispatcher.register(function (action) {
       url = url
         .replace('{lng}', action.location.longitude)
         .replace('{lat}',action.location.latitude);
-      
+
       update(url).then(function (data) {
         _posts = data;
         PostStore.emitChange();
