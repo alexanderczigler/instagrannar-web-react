@@ -13,7 +13,6 @@ module.exports = React.createClass({
   },
   getByLocation: function (location) {
     LocationActions.getByLocation(location);
-    console.log('update');
     this.setState({
       location: SuggestedLocationStore.get()
     });
