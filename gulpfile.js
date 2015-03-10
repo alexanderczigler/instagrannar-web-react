@@ -8,6 +8,7 @@ var scsslint     = require('gulp-scss-lint');
 var autoprefixer = require('gulp-autoprefixer');
 var gutil        = require('gulp-util');
 var plumber      = require('gulp-plumber');
+var jest         = require('gulp-jest');
 var colors       = gutil.colors;
 
 
@@ -30,6 +31,9 @@ var myCustomReporter = function(file) {
   }
 };
 
+//
+// Server
+// --------------------------------------------------
 gulp.task('webserver', ['browserify', 'copy'], function() {
   gulp.src('dist')
     .pipe(webserver({
@@ -37,6 +41,9 @@ gulp.task('webserver', ['browserify', 'copy'], function() {
     }));
 });
 
+//
+// JS
+// --------------------------------------------------
 gulp.task('browserify', function() {
     gulp.src('app/js/main.js')
       .pipe(browserify({transform: 'reactify'}))
@@ -48,6 +55,17 @@ gulp.task('browserify', function() {
 gulp.task('copy', function() {
     gulp.src('app/index.html')
       .pipe(gulp.dest('dist'));
+});
+
+gulp.task('jest', function () {
+  return gulp
+    .src('./app/js/components', { read: false })
+    .pipe(jest({
+      scriptPreprocessor: __dirname + '/preprocessor.js',
+      unmockedModulePathPatterns: [
+        'node_modules/react'
+      ]
+    }));
 });
 
 //
@@ -79,16 +97,16 @@ gulp.task('scss', function () {
 // Tasks
 // --------------------------------------------------
 gulp.task('css', ['browserify', 'copy', 'webserver', 'scss', 'scss-lint', 'watch:scss']);
-gulp.task('default',['browserify', 'copy', 'webserver', 'scss', 'watch']);
+gulp.task('default',['browserify', 'copy', 'webserver', 'scss', 'jest', 'watch']);
 
 gulp.task('watch:scss', function () {
   gulp.watch(['./app/scss/**/*.scss'], ['scss-lint', 'scss']);
-  gulp.watch(['./app/js/**/*.jsx', './app/js/**/*.js'], ['browserify']);
+  gulp.watch(['./app/js/**/*.jsx', './app/js/**/*.js'], ['jest', 'browserify']);
   gulp.watch(['./app/**/*.html'], ['copy']);
 });
 
 gulp.task('watch', function () {
   gulp.watch(['./app/scss/**/*.scss'], ['scss']);
-  gulp.watch(['./app/js/**/*.jsx', './app/js/**/*.js'], ['browserify']);
+  gulp.watch(['./app/js/**/*.jsx', './app/js/**/*.js'], ['jest', 'browserify']);
   gulp.watch(['./app/**/*.html'], ['copy']);
 })

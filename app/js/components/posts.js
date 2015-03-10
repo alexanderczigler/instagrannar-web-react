@@ -29,6 +29,7 @@ module.exports = React.createClass({
   render: function () {
     var p = this.state.allPosts;
     p.splice(AdvertisementStore.randomPosition(p.length), 0, AdvertisementStore.get());
+    
     var posts = p.map(function (post, i) {
       return (
         <Post key={i} post={post}></Post>
