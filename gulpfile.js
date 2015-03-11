@@ -97,16 +97,16 @@ gulp.task('scss', function () {
 // Tasks
 // --------------------------------------------------
 gulp.task('css', ['browserify', 'copy', 'webserver', 'scss', 'scss-lint', 'watch:scss']);
-gulp.task('default',['browserify', 'copy', 'webserver', 'scss', 'jest', 'watch']);
+gulp.task('default',['browserify', 'copy', 'webserver', 'scss', 'watch']);
 
 gulp.task('watch:scss', function () {
   gulp.watch(['./app/scss/**/*.scss'], ['scss-lint', 'scss']);
-  gulp.watch(['./app/js/**/*.jsx', './app/js/**/*.js'], ['jest', 'browserify']);
+  gulp.watch(['./app/js/**/*.jsx', './app/js/**/*.js'], ['browserify']);
   gulp.watch(['./app/**/*.html'], ['copy']);
 });
 
 gulp.task('watch', function () {
   gulp.watch(['./app/scss/**/*.scss'], ['scss']);
-  gulp.watch(['./app/js/**/*.jsx', './app/js/**/*.js'], ['jest', 'browserify']);
+  gulp.watch(['./app/js/**/*.jsx', './app/js/**/*.js'], ['browserify']);
   gulp.watch(['./app/**/*.html'], ['copy']);
-})
+});
