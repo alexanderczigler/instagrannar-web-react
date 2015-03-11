@@ -11,12 +11,6 @@ function getUsersLocation () {
       longitude: coords.longitude,
       latitude: coords.latitude
     });
-  }, function (error) {
-    // If any error, resolve with Stockholm
-    deferred.resolve({
-      longitude: 18.056288,
-      latitude: 59.33389
-    })
   });
 
   return deferred.promise;
@@ -24,7 +18,7 @@ function getUsersLocation () {
 
 var LocationsActions = {
   getByLocation: function (location) {
-    if (!location) {
+    if (location === 'usersPosition') {
       getUsersLocation()
         .then(function (location) {
           AppDispatcher.dispatch({

@@ -10,7 +10,7 @@
 
   &:before {
     @include center(both);
-    @include circle(50px);
+    @include circle(150px);
 
     background: rgba(0,0,0, 0.3);
     content: '';

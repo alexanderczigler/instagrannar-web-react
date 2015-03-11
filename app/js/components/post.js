@@ -12,7 +12,7 @@ module.exports = React.createClass({
     });
 
     var user = '@' + this.props.post.user.username;
-    var image = this.props.post.user.username !== 'instagrannar' ? this.props.post.images.standard_resolution.url : '';
+    var image = this.props.post.user.username !== 'instagrannar' ? this.props.post.images.low_resolution.url : '';
 
     return (
       <div className={classes} data-user={user}>

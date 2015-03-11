@@ -5,6 +5,9 @@ var SuggestedLocationStore = require('../stores/SuggestedLocationStore');
 var LocationActions        = require('../actions/LocationActions');
 var PostStore              = require('../stores/PostStore');
 
+var AppDispatcher          = require('../dispatcher/AppDispatcher');
+var LocationStore          = require('../stores/LocationStore');
+
 module.exports = React.createClass({
   getInitialState: function () {
     return {
