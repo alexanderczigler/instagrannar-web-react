@@ -1,52 +1,50 @@
-/** @jsx React.DOM */
+import React from 'react';
+import Post from './post';
+import Loader from './loader';
+import PostStore from '../stores/PostStore';
+import LocationsActions from '../actions/LocationActions';
+import AdvertisementStore from '../stores/AdvertisementStore';
 
-var React = require('react');
-var Post = require('./post');
-var Loader = require('./loader');
-var PostStore = require('../stores/PostStore');
-var LocationsActions = require('../actions/LocationActions');
-var AdvertisementStore = require('../stores/AdvertisementStore');
+export default class Posts extends React.Component {
+  constructor(props) {
+    super(props);
 
-module.exports = React.createClass({
-  getInitialState: function () {
-    return {
+    this.state = {
       allPosts: []
     };
-  },
 
-  componentWillMount: function () {
+    this._onChange = this._onChange.bind(this);
+  }
+
+  componentWillMount() {
     LocationsActions.getByLocation('usersPosition');
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     PostStore.addChangeListener(this._onChange);
-  },
+  }
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     PostStore.removeChangeListener(this._onChange);
-  },
+  }
 
-  render: function () {
+  _onChange() {
+    this.setState({
+      allPosts: PostStore.getAll(),
+      isLoaded: true
+    });
+  }
+
+  render() {
     var p = this.state.allPosts;
     p.splice(AdvertisementStore.randomPosition(p.length), 0, AdvertisementStore.get());
     
-    var posts = p.map(function (post, i) {
-      return (
-        <Post key={i} post={post}></Post>
-      );
-    });
+    var posts = p.map((post, i) => <Post key={i} post={post}></Post>);
     
     return (
       <div className="posts__wrapper">
         {this.state.isLoaded ? <div className="posts">{posts}</div> : <Loader />}
       </div>
     );
-  },
-
-  _onChange: function() {
-    this.setState({
-      allPosts: PostStore.getAll(),
-      isLoaded: true
-    });
   }
-});
+}

@@ -46,9 +46,9 @@ gulp.task('webserver', ['browserify', 'copy'], function() {
 // --------------------------------------------------
 gulp.task('browserify', function() {
     gulp.src('app/js/main.js')
-      .pipe(browserify({transform: 'reactify'}))
+      .pipe(plumber())
+      .pipe(browserify({transform: ['babelify', 'reactify']}))
       .pipe(concat('main.min.js'))
-      .pipe(uglify())
       .pipe(gulp.dest('dist/js'));
 });
 

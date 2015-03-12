@@ -1,24 +1,11 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var EventEmitter  = require('events').EventEmitter;
-var assign        = require('object-assign');
-var constants     = require('../constants/PostConstants');
-var q             = require('q');
+import AppDispatcher from '../dispatcher/AppDispatcher';
+import Events from 'events';
+import assign from 'object-assign';
+import constants from '../constants/PostConstants';
+import Api from './Api';
 
+var EventEmitter = Events.EventEmitter;
 var _posts = [];
-
-function update (url) {
-  var deferred = q.defer();
-
-  var xhr = new XMLHttpRequest();
-  xhr.open('get', url, true);
-  xhr.onload = function() {
-    var result = JSON.parse(xhr.responseText);
-    deferred.resolve(result.data);
-  };
-  xhr.send();
-
-  return deferred.promise;
-}
 
 var PostStore = assign({}, EventEmitter.prototype, {
 
@@ -43,12 +30,11 @@ var PostStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function (action) {
   switch(action.actionType) {
     case 'getByLocation':
-      var url = constants.BASE_URL + '?lng={lng}&lat={lat}&dst=250&max_ts=&min_ts=/-"';
-      url = url
-        .replace('{lng}', action.location.longitude)
-        .replace('{lat}',action.location.latitude);
+      var lat = action.location.latitude;
+      var lng = action.location.longitude;
+      var url = constants.BASE_URL + `?lng=${lng}&lat=${lat}&dst=250&max_ts=&min_ts=/-"`;
 
-      update(url).then(function (data) {
+      Api.get(url).then(function (data) {
         _posts = data;
         PostStore.emitChange();
       });

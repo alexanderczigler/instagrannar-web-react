@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React                  = require('react');
 var SuggestedLocationStore = require('../stores/SuggestedLocationStore');
 var LocationActions        = require('../actions/LocationActions');

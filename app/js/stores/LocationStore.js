@@ -3,7 +3,7 @@ var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var constants = require('../constants/PostConstants');
 
-_location = {};
+var _location = {};
 
 var LocationStore = assign({}, EventEmitter.prototype, {
   getLocation: function () {

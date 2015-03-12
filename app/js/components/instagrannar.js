@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = require('react');
 var Header = require('./header');
 var Map = require('./map');
@@ -12,7 +10,7 @@ module.exports = React.createClass({
     return (
       <div>
         <Header />
-        <Map />
+        <Map initialZoom="14" />
         <SuggestedLocation />
         <Posts />
         <Footer />

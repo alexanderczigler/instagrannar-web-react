@@ -1,9 +1,7 @@
-/** @jsx React.DOM */
+import React from 'react';
 
-var React = require('react');
-
-module.exports = React.createClass({
-  render: function () {
+export default class Footer extends React.Component {
+  render() {
     return (
       <footer className="footer">
         <div className="row cf">
@@ -28,4 +26,4 @@ module.exports = React.createClass({
       </footer>
     );
   }
-});
+}
