@@ -1,13 +1,13 @@
-var React = require('react');
-var Header = require('./header/header');
-var Map = require('./map');
-var Footer = require('./footer/footer');
-var Posts = require('./posts');
-var SuggestedLocation = require('./suggestedLocation/suggestedLocation');
+import React from 'react';
+import Header from './header/header';
+import Map from './map';
+import Footer from './footer/footer';
+import Posts from './posts';
+import SuggestedLocation from './suggestedLocation/suggestedLocation';
 var LocationSearch = require('./locationSearch');
 
-module.exports = React.createClass({
-  render: function () {
+export default class Instagrannar extends React.Component {
+  render () {
     return (
       <div>
         <Header />
@@ -19,4 +19,4 @@ module.exports = React.createClass({
       </div>
     );
   }
-});
+}

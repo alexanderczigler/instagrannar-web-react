@@ -1,10 +1,15 @@
-var React = require('react');
-var addons = require('react-addons');
+import React from 'react';
+import addons from 'react-addons';
 
-module.exports = React.createClass({
-  render: function () {
+export default class Post extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
     var username = this.props.post.user.username;
-    var image = this.props.post.images.low_resolution.url;
+    var image = this.props.post.images;
+    image = image.low_resolution ? image.low_resolution.url : '';
 
     var cx = addons.classSet;
     var classes = cx({
@@ -21,4 +26,4 @@ module.exports = React.createClass({
       </div>
     );
   }
-});
+}

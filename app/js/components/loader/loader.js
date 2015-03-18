@@ -1,11 +1,11 @@
-var React = require('react');
+import React from 'react';
 
-module.exports = React.createClass({
-  render: function () {
+export default class Loader extends React.Component {
+  render() {
     return (
       <div className="loader__wrapper">
         <div className="loader"></div>
       </div>
     );
   }
-});
+}
