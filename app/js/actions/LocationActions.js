@@ -24,11 +24,19 @@ var LocationsActions = {
           });          
         })
     } else {
+      console.log(location);
       AppDispatcher.dispatch({
         actionType: 'getByLocation',
         location: location
       });
     }
+  },
+
+  setLocation: function (location) {
+    AppDispatcher.dispatch({
+      actionType: 'setLocation',
+      location: location
+    });
   }
 };
 

@@ -4,8 +4,8 @@
 // ------------------------------------------------------------
 
 .instagrannar-map {
-  @include size(100%, 240px);
-
+  @include size(100%, 400px);
+  
   position: relative;
 
   &:before {

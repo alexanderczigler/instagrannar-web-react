@@ -2,7 +2,7 @@ import AppDispatcher from '../dispatcher/AppDispatcher';
 import Events from 'events';
 import assign from 'object-assign';
 import constants from '../constants/PostConstants';
-import Api from './Api';
+import Api from '../utilities/Api';
 
 var EventEmitter = Events.EventEmitter;
 var _posts = [];

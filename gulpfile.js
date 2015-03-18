@@ -55,6 +55,9 @@ gulp.task('browserify', function() {
 gulp.task('copy', function() {
     gulp.src('app/index.html')
       .pipe(gulp.dest('dist'));
+
+    gulp.src('app/images/**/*')
+      .pipe(gulp.dest('dist/images'));
 });
 
 gulp.task('jest', function () {

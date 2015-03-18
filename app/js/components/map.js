@@ -2,6 +2,7 @@ var React = require('react');
 var PostStore = require('../stores/PostStore');
 var LocationActions = require('../actions/LocationActions');
 var LocationStore = require('../stores/LocationStore');
+var LocationSearch = require('./locationSearch');
 
 var _googleMap = {};
 
@@ -33,10 +34,22 @@ export default class Map extends React.Component {
     
     var mapOptions = {
       center: this.mapCenterLatLng(),
-      zoom: parseInt(this.props.initialZoom, 10)
+      zoom: parseInt(this.props.initialZoom, 10),
+      disableDefaultUI: true,
+      streetViewControl: false,
+      zoomControl: true,
+      zoomControlOptions: {
+        style: google.maps.ZoomControlStyle.SMALL,
+        position: google.maps.ControlPosition.RIGHT_BOTTOM
+      }
     };
 
     _googleMap = new google.maps.Map(React.findDOMNode(this.refs.map), mapOptions);
+
+    // Add autocomplete
+    var autocomplete = this.refs.search.getDOMNode();
+
+    _googleMap.controls[google.maps.ControlPosition.TOP_LEFT].push(autocomplete);
 
     var marker = new google.maps.Marker({
       position: this.mapCenterLatLng(),
@@ -77,7 +90,10 @@ export default class Map extends React.Component {
 
   render() {
     return (
-      <div className="instagrannar-map" ref="map"></div>
+      <div>
+        <LocationSearch ref="search" map={_googleMap} />
+        <div className="instagrannar-map" ref="map"></div>
+      </div>
     );
   }
 };
