@@ -1,11 +1,11 @@
-import React                  from 'react';
+import React from 'react';
 import SuggestedLocationStore from '../../stores/SuggestedLocationStore';
-import LocationActions        from '../../actions/LocationActions';
-import PostStore              from '../../stores/PostStore';
+import LocationActions from '../../actions/LocationActions';
+import PostStore from '../../stores/PostStore';
 
-import AppDispatcher          from '../../dispatcher/AppDispatcher';
-import LocationStore          from '../../stores/LocationStore';
-import suggestedLocation      from './suggestedLocation.json';
+import AppDispatcher from '../../dispatcher/AppDispatcher';
+import LocationStore from '../../stores/LocationStore';
+import text from './sv.json';
 
 export default class SuggestedLocation extends React.Component {
   constructor (props) {
@@ -35,7 +35,7 @@ export default class SuggestedLocation extends React.Component {
     return (
       <div className="location">
         <a onClick={this.getByLocation.bind(this, this.state.location)}>
-           {suggestedLocation.noideas} {this.state.location.name}
+           {text.noideas} {this.state.location.name}
         </a>
       </div>
     );

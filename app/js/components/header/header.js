@@ -1,5 +1,5 @@
 import React from 'react';
-import global from '../global.json';
+import global from '../global.sv.json';
 
 export default class Header extends React.Component {
   render() {

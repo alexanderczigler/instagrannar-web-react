@@ -1,6 +1,6 @@
 import React from 'react';
-import global from '../global.json';
-import footer from './footer.json';
+import global from '../global.sv.json';
+import text from './sv.json';
 import HTMLparser from '../../utilities/HTMLparser';
 
 export default class Footer extends React.Component {
@@ -11,7 +11,7 @@ export default class Footer extends React.Component {
           <div className="col-4">
             <div className="copyright">
               {global.brand}<br/>
-              {HTMLparser(footer.copyright)}
+              {HTMLparser(text.copyright)}
             </div>
           </div>
 
@@ -20,11 +20,11 @@ export default class Footer extends React.Component {
           </div>
 
           <div className="col-4">
-            <a href="/#/annonsering">{footer.advertising}</a>
+            <a href="/#/annonsering">{text.advertising}</a>
           </div>
 
           <div className="col-4">
-            <a href="/#/legal">{footer.legal}</a>
+            <a href="/#/legal">{text.legal}</a>
           </div>
         </div>
       </footer>
