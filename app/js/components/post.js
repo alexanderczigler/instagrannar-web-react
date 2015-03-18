@@ -3,14 +3,17 @@ var addons = require('react-addons');
 
 module.exports = React.createClass({
   render: function () {
+    var username = this.props.post.user.username;
+    var image = this.props.post.images.low_resolution.url;
+
     var cx = addons.classSet;
     var classes = cx({
       'posts__post col-4': true,
-      'posts__post--instagrannar': this.props.post.user.username === 'instagrannar'
+      'posts__post--instagrannar': username === 'instagrannar'
     });
 
-    var user = '@' + this.props.post.user.username;
-    var image = this.props.post.user.username !== 'instagrannar' ? this.props.post.images.low_resolution.url : '';
+    var user = '@' + username;
+    var image = username !== 'instagrannar' ? image : '';
 
     return (
       <div className={classes} data-user={user}>
