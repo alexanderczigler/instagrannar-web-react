@@ -1,19 +1,16 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
-var q = require('q');
 
 function getUsersLocation () {
-  var deferred = q.defer();
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(function (data) {
+      var coords = data.coords;
 
-  navigator.geolocation.getCurrentPosition(function (data) {
-    var coords = data.coords;
-
-    deferred.resolve({
-      longitude: coords.longitude,
-      latitude: coords.latitude
+      resolve({
+        longitude: coords.longitude,
+        latitude: coords.latitude
+      });
     });
   });
-
-  return deferred.promise;
 }
 
 var LocationsActions = {
