@@ -4,7 +4,7 @@ import Map from './map';
 import Footer from './footer/footer';
 import Posts from './posts';
 import SuggestedLocation from './suggestedLocation/suggestedLocation';
-var LocationSearch = require('./locationSearch');
+import LocationSearch from './locationSearch';
 
 export default class Instagrannar extends React.Component {
   render () {
