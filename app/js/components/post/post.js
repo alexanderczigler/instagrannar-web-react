@@ -7,7 +7,6 @@ export default class Post extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     var username = this.props.post.user.username;
     var image = this.props.post.images;
     image = image.low_resolution ? image.low_resolution.url : '';
