@@ -2,9 +2,15 @@ import React from 'react';
 import addons from 'react-addons';
 
 export default class Post extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
+    console.log(this.props)
     var username = this.props.post.user.username;
-    var image = this.props.post.images.low_resolution.url;
+    var image = this.props.post.images;
+    image = image.low_resolution ? image.low_resolution.url : '';
 
     var cx = addons.classSet;
     var classes = cx({
