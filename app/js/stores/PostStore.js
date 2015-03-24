@@ -1,50 +1,26 @@
-import AppDispatcher from '../dispatcher/AppDispatcher';
-import Events from 'events';
-import assign from 'object-assign';
-import constants from '../constants/PostConstants';
-import Api from '../utilities/Api';
+var alt = require('../../alt');
+var PostActions = require('../actions/PostActions');
+var LocationStore = require('./LocationStore');
 
-var EventEmitter = Events.EventEmitter;
-var _posts = [];
+class PostStore {
+  constructor() {
+    this.posts = [];
 
-var PostStore = assign({}, EventEmitter.prototype, {
-
-  getAll: function (url) {
-    return _posts;
-  },
-
-  emitChange: function() {
-    this.emit(constants.CHANGE_EVENT);
-  },
-
-  addChangeListener: function(callback) {
-    this.on(constants.CHANGE_EVENT, callback);
-  },
-
-  removeChangeListener: function(callback) {
-    this.removeListener(constants.CHANGE_EVENT, callback);
+    this.bindListeners({
+      handleUpdatePosts: PostActions.UPDATE_POSTS,
+      handleGetPosts: PostActions.GET_POSTS
+    });
   }
 
-});
-
-AppDispatcher.register(function (action) {
-  switch(action.actionType) {
-    case 'getByLocation':
-      var lat = action.location.latitude;
-      var lng = action.location.longitude;
-      var url = constants.BASE_URL + `?lng=${lng}&lat=${lat}&dst=250&max_ts=&min_ts=/-"`;
-
-      Api.get(url).then(function (data) {
-        _posts = data;
-        PostStore.emitChange();
-      });
-
-      break;
-    default:
-     // default
+  handleUpdatePosts(posts) {
+    this.posts = posts;
   }
 
-  return true;
-});
+  handleGetPosts(location) {
+    // Reset for spinner purposes
+    this.posts = [];
+  }
 
-module.exports = PostStore;
+}
+
+module.exports = alt.createStore(PostStore, 'PostStore');

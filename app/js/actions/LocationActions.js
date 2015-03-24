@@ -1,4 +1,4 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
+var alt = require('../../alt');
 
 function getUsersLocation () {
   return new Promise(function (resolve, reject) {
@@ -13,31 +13,23 @@ function getUsersLocation () {
   });
 }
 
-var LocationsActions = {
-  getByLocation: function (location) {
+class LocationsActions {
+  getLocation () {
+    this.dispatch();
+  }
+
+  setLocation (location) {
+    var self = this;
+
     if (location === 'usersPosition') {
       getUsersLocation()
         .then(function (location) {
-          AppDispatcher.dispatch({
-            actionType: 'getByLocation',
-            location: location
-          });          
+          self.dispatch(location);
         })
     } else {
-      console.log(location);
-      AppDispatcher.dispatch({
-        actionType: 'getByLocation',
-        location: location
-      });
+      this.dispatch(location);
     }
-  },
-
-  setLocation: function (location) {
-    AppDispatcher.dispatch({
-      actionType: 'setLocation',
-      location: location
-    });
   }
-};
+}
 
-module.exports = LocationsActions;
+module.exports = alt.createActions(LocationsActions);

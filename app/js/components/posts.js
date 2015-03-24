@@ -1,44 +1,61 @@
 import React from 'react';
 import Post from './post/post';
 import Loader from './loader/loader';
+import PostActions from '../actions/PostActions';
 import PostStore from '../stores/PostStore';
-import LocationsActions from '../actions/LocationActions';
+import LocationActions from '../actions/LocationActions';
+import LocationStore from '../stores/LocationStore';
 import AdvertisementStore from '../stores/AdvertisementStore';
+import SuggestedLocationStore from '../stores/SuggestedLocationStore';
 
-export default class Posts extends React.Component {
-  constructor(props) {
-    super(props);
+module.exports = React.createClass({
+  getStoreState: function () {
+    return {
+      posts: PostStore.getState().posts,
+      advertisement: AdvertisementStore.getState().ad
+    }
+  },
 
-    this.state = {
-      allPosts: []
-    };
+  getInitialState: function () {
+    return this.getStoreState();
+  },
 
-    this._onChange = this._onChange.bind(this);
-  }
+  randomPosition: function (max) {
+    var r = Math.random();
+    var q = r * max;
+    var position = Math.floor(q);
+    return position;
+  },
 
-  componentWillMount() {
-    LocationsActions.getByLocation('usersPosition');
-  }
+  componentDidMount: function () {
+    LocationStore.listen(this._changePosition);
+    PostStore.listen(this._onChange);
+    SuggestedLocationStore.listen(this._onChange);
 
-  componentDidMount() {
-    PostStore.addChangeListener(this._onChange);
-  }
+    LocationActions.setLocation('usersPosition');
+  },
 
-  componentWillUnmount() {
-    PostStore.removeChangeListener(this._onChange);
-  }
+  componentWillUnmount: function () {
+    LocationStore.unlisten(this._changePosition);
+    PostStore.unlisten(this._onChange);
+    SuggestedLocationStore.unlisten(this._onChange);
+  },
 
-  _onChange() {
-    this.setState({
-      allPosts: PostStore.getAll(),
-      isLoaded: true
-    });
-  }
+  _onChange: function () {
+    var newState = this.getStoreState();
+    newState.isLoaded = true;
 
-  render() {
-    var p = this.state.allPosts;
-    p.splice(AdvertisementStore.randomPosition(p.length), 0, AdvertisementStore.get());
-    
+    this.setState(newState);
+  },
+
+  _changePosition: function (location) {
+    PostActions.getPosts();
+  },
+
+  render: function () {
+    var p = this.state.posts;
+    p.splice(this.randomPosition(p.length), 0, this.state.advertisement);
+
     var posts = p.map((post, i) => <Post key={i} post={post}></Post>);
     
     return (
@@ -47,4 +64,4 @@ export default class Posts extends React.Component {
       </div>
     );
   }
-}
+});
