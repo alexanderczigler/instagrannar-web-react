@@ -29,6 +29,14 @@ class PostActions {
   postsFailed (error) {
     this.dispatch(error);
   }
+  
+  highlightPost (post) {
+    this.dispatch(post);
+  }
+  
+  unHighlightPost () {
+    this.dispatch();
+  }
 }
 
 module.exports = alt.createActions(PostActions);

@@ -52,8 +52,9 @@ module.exports = React.createClass({
     PostActions.getPosts();
   },
   
-  _onPostClick: function (id) {
-    console.log('Post clicked', id);
+  _onPostClick: function (post) {
+    console.log('Post clicked', post);
+    PostActions.highlightPost(post);
   },
 
   render: function () {
