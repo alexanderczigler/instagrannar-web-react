@@ -11,7 +11,7 @@ class PostStore {
       handleUpdatePosts: PostActions.UPDATE_POSTS,
       handleGetPosts: PostActions.GET_POSTS,
       handleHighlightPost: PostActions.HIGHLIGHT_POST,
-      handleUnHighlightPost: PostActions.UNHIGHLIGHT_POST
+      handleUnHighlightPost: PostActions.UN_HIGHLIGHT_POST
     });
   }
 
