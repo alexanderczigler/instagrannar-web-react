@@ -1,5 +1,8 @@
 var React = require('react');
 var PostActions = require('../actions/PostActions');
+var PostStore = require('../stores/PostStore');
+
+var _url = '';
 
 module.exports = React.createClass({
   getInitialState: function () {
@@ -10,7 +13,19 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function () {
-    //LocationStore.listen(this._centerMap);
+    PostStore.listen(this._setHighlight);
+  },
+  
+  _setHighlight: function (post) {
+    if (post.highlightedPost.images.standard_resolution.url != undefined) {
+      var newState = {
+        imageUrl: post.highlightedPost.images.standard_resolution.url,
+        id: post.highlightedPost.id
+      };
+      console.log('it is something all right', newState);
+      _url = newState.imageUrl;
+      this.setState(newState); // WHY WHY WHY is newState "null" or "undefined" here !?
+    }
   },
 
   componentWillUnmount: function () {
@@ -19,8 +34,8 @@ module.exports = React.createClass({
 
   render: function () {
     return (
-      <div>
-        <img src={this.props.imageUrl} />
+      <div className="highlight-post-container">
+        <img src={_url} />
       </div>
     );
   }
