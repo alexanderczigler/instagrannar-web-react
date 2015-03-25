@@ -1,12 +1,14 @@
 import React from 'react';
 import addons from 'react-addons';
 
-export default class Post extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+module.exports = React.createClass({
+  propTypes: {
+    user: React.PropTypes.object,
+    image: React.PropTypes.object,
+    onPostClick: React.PropTypes.func.isRequired
+  },
 
-  render() {
+  render: function () {
     var username = this.props.user.username;
     var image = this.props.images.standard_resolution.url;
 
@@ -32,4 +34,4 @@ export default class Post extends React.Component {
       </div>
     );
   }
-}
+});
