@@ -1,44 +1,26 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
-var constants = require('../constants/PostConstants');
+var alt = require('../../alt');
+var LocationActions = require('../actions/LocationActions');
 
-var _location = {};
+class LocationStore {
+  constructor() {
+    this.location = {
+      latitude: 59.33389,
+      longitude: 18.056288
+    };
 
-var LocationStore = assign({}, EventEmitter.prototype, {
-  getLocation: function () {
-    return _location;
-  },
-  
-  setLocation: function(location) {
-    _location = location;
-  },
-  
-  emitChange: function() {
-    this.emit(constants.CHANGE_EVENT);
-  },
-
-  addChangeListener: function(callback) {
-    this.on(constants.CHANGE_EVENT, callback);
-  },
-
-  removeChangeListener: function(callback) {
-    this.removeListener(constants.CHANGE_EVENT, callback);
-  }
-});
-
-AppDispatcher.register(function (action) {
-  switch(action.actionType) {
-    case 'setLocation':
-      console.log('setLocation happening', action.location);
-      LocationStore.setLocation(action.location);
-      LocationStore.emitChange();
-      break;
-    default:
-    // default
+    this.bindListeners({
+      handleGetLocation: LocationActions.GET_LOCATION,
+      handleSetLocation: LocationActions.SET_LOCATION
+    });
   }
 
-  return true;
-});
+  handleGetLocation(location) {
+    return this.location;
+  }
 
-module.exports = LocationStore;
+  handleSetLocation(location) {
+    this.location = location;
+  }
+}
+
+module.exports = alt.createStore(LocationStore, 'LocationStore');

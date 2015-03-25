@@ -16,14 +16,10 @@ var LocationSearch = React.createClass({
   },
   buttonClick: function() {
     var place = _autoComplete.getPlace();
+    
     if (!place.geometry) {
       return;
     }
-
-    LocationActions.getByLocation({
-      longitude: place.geometry.location.lng(),
-      latitude: place.geometry.location.lat()
-    });
 
     LocationActions.setLocation({
       longitude: place.geometry.location.lng(),

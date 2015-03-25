@@ -32,6 +32,7 @@
     "url": "git@bitbucket.org:team-ingr/ingr-web-react.git"
   },
   "dependencies": {
+    "alt": "^0.14.4",
     "events": "^1.0.2",
     "flux": "^2.0.1",
     "gulp": "^3.8.11",
