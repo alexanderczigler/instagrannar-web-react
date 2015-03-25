@@ -51,12 +51,16 @@ module.exports = React.createClass({
   _changePosition: function (location) {
     PostActions.getPosts();
   },
+  
+  _onPostClick: function (id) {
+    console.log('Post clicked', id);
+  },
 
   render: function () {
     var p = this.state.posts;
     p.splice(this.randomPosition(p.length), 0, this.state.advertisement);
 
-    var posts = p.map((post, i) => <Post key={i} {...post}></Post>);
+    var posts = p.map((post, i) => <Post key={i} {...post} onPostClick={this._onPostClick}></Post>);
     
     return (
       <div className="posts__wrapper">

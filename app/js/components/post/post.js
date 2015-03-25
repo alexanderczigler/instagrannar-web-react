@@ -18,10 +18,17 @@ export default class Post extends React.Component {
 
     var user = '@' + username;
     var image = username !== 'instagrannar' ? image : '';
-
+    
+    var onPostClick = this.props.onPostClick;
+    var id = this.props.id;
+    
+    var postClick = function() {
+      onPostClick(id);
+    };
+    
     return (
-      <div className={classes} data-user={user}>
-        <img className="posts__image" src={image} />
+      <div onClick={postClick} className={classes} data-user={user}>
+          <img className="posts__image" src={image} />
       </div>
     );
   }
