@@ -1,5 +1,4 @@
 var React = require('react');
-var AppDispatcher = require('../dispatcher/AppDispatcher');
 var LocationActions = require('../actions/LocationActions');
 
 var _autoComplete = {};
