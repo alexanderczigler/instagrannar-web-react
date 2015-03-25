@@ -2,14 +2,17 @@ var alt = require('../../alt');
 
 function getUsersLocation () {
   return new Promise(function (resolve, reject) {
-    navigator.geolocation.getCurrentPosition(function (data) {
-      var coords = data.coords;
-
-      resolve({
-        longitude: coords.longitude,
-        latitude: coords.latitude
+    console.log('get loc');
+    setTimeout(function () {
+      navigator.geolocation.getCurrentPosition(function (data) {
+        var coords = data.coords;
+        console.log('get loc 2');
+        resolve({
+          longitude: coords.longitude,
+          latitude: coords.latitude
+        });
       });
-    });
+    }, 1000);
   });
 }
 
