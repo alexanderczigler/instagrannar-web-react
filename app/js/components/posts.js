@@ -54,14 +54,14 @@ module.exports = React.createClass({
   },
   
   _onPostClick: function (post) {
-    PostActions.highlightPost(this.state.posts[post]);
+    PostActions.highlightPost(post);
   },
 
   render: function () {
     var p = this.state.posts;
     p.splice(this.randomPosition(p.length), 0, this.state.advertisement);
 
-    var posts = p.map((post, i) => <Post key={i} {...post} onPostClick={this._onPostClick.bind(this, i)}></Post>);
+    var posts = p.map((post, i) => <Post key={i} {...post} onPostClick={this._onPostClick.bind(this, post)}></Post>);
     
     return (
       <div className="posts__wrapper">
