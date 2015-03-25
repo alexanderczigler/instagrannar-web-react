@@ -42,6 +42,7 @@ module.exports = React.createClass({
   },
 
   _onChange: function () {
+    console.log('_onChange',this);
     var newState = this.getStoreState();
     newState.isLoaded = true;
 
@@ -53,15 +54,14 @@ module.exports = React.createClass({
   },
   
   _onPostClick: function (post) {
-    console.log('Post clicked', post);
-    PostActions.highlightPost(post);
+    PostActions.highlightPost(this.state.posts[post]);
   },
 
   render: function () {
     var p = this.state.posts;
     p.splice(this.randomPosition(p.length), 0, this.state.advertisement);
 
-    var posts = p.map((post, i) => <Post key={i} {...post} onPostClick={this._onPostClick}></Post>);
+    var posts = p.map((post, i) => <Post key={i} {...post} onPostClick={this._onPostClick.bind(this, i)}></Post>);
     
     return (
       <div className="posts__wrapper">

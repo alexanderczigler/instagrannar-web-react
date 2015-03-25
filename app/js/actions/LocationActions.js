@@ -2,11 +2,9 @@ var alt = require('../../alt');
 
 function getUsersLocation () {
   return new Promise(function (resolve, reject) {
-    console.log('get loc');
     setTimeout(function () {
       navigator.geolocation.getCurrentPosition(function (data) {
         var coords = data.coords;
-        console.log('get loc 2');
         resolve({
           longitude: coords.longitude,
           latitude: coords.latitude
