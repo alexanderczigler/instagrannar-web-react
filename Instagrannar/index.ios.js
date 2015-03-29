@@ -9,9 +9,7 @@ var {
   MapView,
   ListView,
   Image,
-  Navigator,
   TabBarIOS,
-  NavigatorIOS
 } = React;
 
 var TabBarItemIOS = TabBarIOS.Item;
@@ -100,7 +98,11 @@ var Instagrannar = React.createClass({
   },
     
   _regionChange: function(r) {
-    console.log(r);
+    this.setState({
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2,
+      })
+    });
     this.fetchData(r.latitude, r.longitude);
   },
     
