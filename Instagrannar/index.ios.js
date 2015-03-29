@@ -1,7 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
 'use strict';
 
 var React = require('react-native');
@@ -20,17 +16,12 @@ var {
 
 var TabBarItemIOS = TabBarIOS.Item;
 
-var API_KEY = '7waqfqbprs7pajbz28mqf6vz';
 var API_URL = 'http://instagrannar.se:3000/pictures?lng={lng}&lat={lat}&dst=350&max_ts=&min_ts=/-';
 var lng = 18.05935107885739;
 var lat = 59.33640477604537;
 
 API_URL = API_URL.replace('{lng}', lng);
 API_URL = API_URL.replace('{lat}', lat);
-
-var PAGE_SIZE = 25;
-var PARAMS = '?apikey=' + API_KEY + '&page_limit=' + PAGE_SIZE;
-var REQUEST_URL = API_URL;
 
 var Instagrannar = React.createClass({
   
@@ -49,7 +40,7 @@ var Instagrannar = React.createClass({
   },
   
   fetchData: function() {
-    fetch(REQUEST_URL)
+    fetch(API_URL)
       .then((response) => response.json())
       .then((responseData) => {
         this.setState({
@@ -110,7 +101,7 @@ var Instagrannar = React.createClass({
     return (
       <View style={styles.container}>
         <Text>
-          Loading instagrams...
+          Instagrannar
         </Text>
       </View>
     );
@@ -120,22 +111,22 @@ var Instagrannar = React.createClass({
     return (
       <ListView
         dataSource={this.state.dataSource}
-        renderRow={this.renderMovie}
+        renderRow={this.renderPicture}
         style={styles.listView}
       />
     );
   },
 
-  renderMovie: function(movie) {
+  renderPicture: function(picture) {
     return (
       <View style={styles.container}>
         <Image
-          source={{uri: movie.images.thumbnail.url}}
+          source={{uri: picture.images.thumbnail.url}}
           style={styles.thumbnail}
         />
         <View style={styles.rightContainer}>
-          <Text style={styles.title}>@{movie.user.username}</Text>
-          <Text style={styles.year}>Filter: {movie.filter}</Text>
+          <Text style={styles.title}>@{picture.user.username}</Text>
+          <Text style={styles.year}>Filter: {picture.filter}</Text>
         </View>
       </View>
     );
