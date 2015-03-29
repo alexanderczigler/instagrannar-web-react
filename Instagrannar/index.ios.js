@@ -13,8 +13,12 @@ var {
   MapView,
   ListView,
   Image,
-  Navigator
+  Navigator,
+  TabBarIOS,
+  NavigatorIOS
 } = React;
+
+var TabBarItemIOS = TabBarIOS.Item;
 
 var API_KEY = '7waqfqbprs7pajbz28mqf6vz';
 var API_URL = 'http://instagrannar.se:3000/pictures?lng={lng}&lat={lat}&dst=350&max_ts=&min_ts=/-';
@@ -32,6 +36,7 @@ var Instagrannar = React.createClass({
   
   getInitialState: function() {
     return {
+      selectedTab: 'mapTab',
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
@@ -59,16 +64,48 @@ var Instagrannar = React.createClass({
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
-
+    
     return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderMovie}
-        style={styles.listView}
-      />
+      <TabBarIOS selectedTab={this.state.selectedTab}>
+        <TabBarItemIOS name='mapTab' title='Karta' icon={{}} selected={this.state.selectedTab === 'mapTab'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'mapTab',
+            });
+          }}>
+        {this.renderMap()}
+        </TabBarItemIOS>
+        <TabBarItemIOS name='pictureTab' title='Bilder' icon={{}} selected={this.state.selectedTab === 'pictureTab'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'pictureTab',
+            });
+          }}>
+        {this.renderPictureList()}
+        </TabBarItemIOS>
+        <TabBarItemIOS name='profileTab' title='Profil' icon={{}} selected={this.state.selectedTab === 'profileTab'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'profileTab',
+            });
+          }}>
+        </TabBarItemIOS>
+      </TabBarIOS>
     );
   },
 
+  renderMap: function() {
+    var region = {
+      latitude: 59.33389,
+      longitude: 18.056288,
+      latitudeDelta: 1,
+      longitudeDelta: 1
+    };
+    return (
+      <MapView style={styles.container} showsUserLocation="true" />
+    );
+  },
+    
   renderLoadingView: function() {
     return (
       <View style={styles.container}>
@@ -76,6 +113,16 @@ var Instagrannar = React.createClass({
           Loading instagrams...
         </Text>
       </View>
+    );
+  },
+    
+  renderPictureList: function () {
+    return (
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderMovie}
+        style={styles.listView}
+      />
     );
   },
 
@@ -93,20 +140,6 @@ var Instagrannar = React.createClass({
       </View>
     );
   }
-  
-  /*
-  render: function() {
-    var region = {
-      latitude: 59.33389,
-      longitude: 18.056288,
-      latitudeDelta: 1,
-      longitudeDelta: 1
-    };
-    return (
-      <MapView style={styles.container} showsUserLocation="true" />
-    );
-  }
-  */
 });
 
 var styles = StyleSheet.create({
