@@ -120,7 +120,7 @@ var Instagrannar = React.createClass({
     return (
       <View style={styles.container}>
         <Text>
-          Din profil
+          Status: du är awesome.
         </Text>
       </View>
     );
