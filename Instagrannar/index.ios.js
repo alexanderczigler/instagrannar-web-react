@@ -80,6 +80,7 @@ var Instagrannar = React.createClass({
               selectedTab: 'profileTab',
             });
           }}>
+          {this.renderProfileView()}
         </TabBarItemIOS>
       </TabBarIOS>
     );
@@ -102,6 +103,16 @@ var Instagrannar = React.createClass({
       <View style={styles.container}>
         <Text>
           Instagrannar
+        </Text>
+      </View>
+    );
+  },
+    
+  renderProfileView: function() {
+    return (
+      <View style={styles.container}>
+        <Text>
+          Din profil
         </Text>
       </View>
     );
@@ -153,8 +164,8 @@ var styles = StyleSheet.create({
     textAlign: 'center',
   },
   thumbnail: {
-    width: 53,
-    height: 81,
+    width: 90,
+    height: 90,
   },
   listView: {
     paddingTop: 20,
