@@ -17,11 +17,6 @@ var {
 var TabBarItemIOS = TabBarIOS.Item;
 
 var API_URL = 'http://instagrannar.se:3000/pictures?lng={lng}&lat={lat}&dst=350&max_ts=&min_ts=/-';
-var lng = 18.05935107885739;
-var lat = 59.33640477604537;
-
-API_URL = API_URL.replace('{lng}', lng);
-API_URL = API_URL.replace('{lat}', lat);
 
 var Instagrannar = React.createClass({
   
@@ -36,11 +31,17 @@ var Instagrannar = React.createClass({
   },
   
   componentDidMount: function() {
-    this.fetchData();
+    var lng = 18.05935107885739;
+    var lat = 59.33640477604537;
+    this.fetchData(lat, lng);
   },
   
-  fetchData: function() {
-    fetch(API_URL)
+  fetchData: function(lat, lng) {
+    var url = API_URL;
+    url = url.replace('{lng}', lng);
+    url = url.replace('{lat}', lat);
+    console.log('fetch', url);
+    fetch(url)
       .then((response) => response.json())
       .then((responseData) => {
         this.setState({
@@ -94,8 +95,13 @@ var Instagrannar = React.createClass({
       longitudeDelta: 1
     };
     return (
-      <MapView style={styles.container} showsUserLocation="true" />
+      <MapView style={styles.container} showsUserLocation='true' onRegionChangeComplete={this._regionChange} />
     );
+  },
+    
+  _regionChange: function(r) {
+    console.log(r);
+    this.fetchData(r.latitude, r.longitude);
   },
     
   renderLoadingView: function() {
