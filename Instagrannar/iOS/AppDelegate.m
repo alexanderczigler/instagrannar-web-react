@@ -39,6 +39,9 @@
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"Instagrannar"
                                                    launchOptions:launchOptions];
+    
+    // Show status bar when app has loaded
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [[UIViewController alloc] init];

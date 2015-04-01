@@ -1,13 +1,16 @@
 'use strict';
 
 var React = require('react-native');
+var SinglePicture = require('./components/SinglePicture');
+var PictureList = require('./components/PictureList');
+
 var {
   AppRegistry,
   StyleSheet,
   Text,
   View,
-  MapView,
   ListView,
+  MapView,
   Image,
   TabBarIOS,
   TouchableHighlight
@@ -51,42 +54,6 @@ var Instagrannar = React.createClass({
       .done();
   },
 
-  render: function() {
-    if (!this.state.loaded) {
-      return this.renderLoadingView();
-    }
-    
-    return (
-      <TabBarIOS selectedTab={this.state.selectedTab}>
-        <TabBarItemIOS name='mapTab' title='Karta' icon={{}} selected={this.state.selectedTab === 'mapTab'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'mapTab',
-            });
-          }}>
-        {this.renderMap()}
-        </TabBarItemIOS>
-        <TabBarItemIOS name='pictureTab' title='Bilder' icon={{}} selected={this.state.selectedTab === 'pictureTab'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'pictureTab',
-              selectedPicture: {}
-            });
-          }}>
-        {this.renderPictureList()}
-        </TabBarItemIOS>
-        <TabBarItemIOS name='profileTab' title='Profil' icon={{}} selected={this.state.selectedTab === 'profileTab'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'profileTab',
-            });
-          }}>
-          {this.renderProfileView()}
-        </TabBarItemIOS>
-      </TabBarIOS>
-    );
-  },
-
   renderMap: function() {
     var region = {
       latitude: 59.33389,
@@ -95,17 +62,17 @@ var Instagrannar = React.createClass({
       longitudeDelta: 1
     };
     return (
-      <MapView style={styles.container} showsUserLocation='true' onRegionChangeComplete={this._regionChange} />
+      <MapView style={styles.container} showsUserLocation={true} onRegionChangeComplete={this._regionChange} />
     );
   },
     
   _regionChange: function(r) {
-    this.setState({
-      dataSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2,
-      })
-    });
-    this.fetchData(r.latitude, r.longitude);
+    // this.setState({
+    //   dataSource: new ListView.DataSource({
+    //     rowHasChanged: (row1, row2) => row1 !== row2,
+    //   })
+    // });
+    // this.fetchData(r.latitude, r.longitude);
   },
     
   renderLoadingView: function() {
@@ -134,45 +101,80 @@ var Instagrannar = React.createClass({
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderPicture}
-          style={styles.listView}
-        />
+          style={styles.listView}/>
       );
     }
     
     return this.renderSinglePicture(this.state.selectedPicture);
   },
 
-  renderPicture: function(picture) {
+  renderPicture: function (picture: Object) {
     return (
-      <View style={styles.container}>
-        <TouchableHighlight onPress={() => {this.setState({
-            selectedTab: 'pictureTab',
-            selectedPicture: picture
-          })}}>
-          <Image
-            source={{uri: picture.images.thumbnail.url}}
-            style={styles.thumbnail}
-          />
-        </TouchableHighlight>
-        <View style={styles.rightContainer}>
-          <Text style={styles.title}>@{picture.user.username}</Text>
-          <Text style={styles.year}>Filter: {picture.filter}</Text>
-        </View>
-      </View>
+      <PictureList
+        setSinglePicture={this.setSinglePicture}
+        picture={picture} />
     );
   },
 
-  renderSinglePicture: function(picture) {
+  setSinglePicture: function (picture: Object) {
+    console.log(picture);
+    this.setState({
+      selectedTab: 'pictureTab',
+      selectedPicture: picture
+    });
+  },
+
+  renderSinglePicture: function (picture: Object) {
+    return <SinglePicture {...picture} />
+  },
+
+  render: function() {
+    if (!this.state.loaded) {
+      return this.renderLoadingView();
+    }
+    
     return (
-      <View style={{flexDirection: 'row', height: 100, padding: 20}}>
-        <Image
-            source={{uri: picture.images.standard_resolution.url}}
-            style={styles.picture}
-          />
-        <Text style={styles.pictureText}>@{picture.user.username}</Text>
-      </View>
+      <TabBarIOS selectedTab={this.state.selectedTab}>
+        <TabBarItemIOS 
+          name='mapTab'
+          title='Karta'
+          icon={_ix_DEPRECATED('bookmarks')}
+          selected={this.state.selectedTab === 'mapTab'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'mapTab',
+            });
+          }}>
+        {this.renderMap()}
+        </TabBarItemIOS>
+        <TabBarItemIOS
+          name='pictureTab'
+          title='Bilder'
+          icon={_ix_DEPRECATED('mostViewed')}
+          selected={this.state.selectedTab === 'pictureTab'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'pictureTab',
+              selectedPicture: {}
+            });
+          }}>
+        {this.renderPictureList()}
+        </TabBarItemIOS>
+        <TabBarItemIOS
+          name='profileTab'
+          title='Profil'
+          icon={_ix_DEPRECATED('contacts')}
+          selected={this.state.selectedTab === 'profileTab'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'profileTab',
+            });
+          }}>
+          {this.renderProfileView()}
+        </TabBarItemIOS>
+      </TabBarIOS>
     );
-  } 
+  },
 
 });
 
@@ -184,36 +186,13 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  rightContainer: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 20,
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  year: {
-    textAlign: 'center',
-  },
-  thumbnail: {
-    width: 90,
-    height: 90,
-  },
-  picture: {
-    left: 0,
-    width: 200,
-    height: 200,
-  },
-  pictureText: {
-    top: 210,
-    left: 0,
-    backgroundColor: '#FFFFFF',
-    color: '#303030'
-  },
-  listView: {
-    paddingTop: 20,
-    backgroundColor: '#F5FCFF',
-  },
 });
+
+function _ix_DEPRECATED(imageUri) {
+  return {
+    uri: imageUri,
+    isStatic: true,
+  };
+}
 
 AppRegistry.registerComponent('Instagrannar', () => Instagrannar);
