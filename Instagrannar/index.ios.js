@@ -10,6 +10,7 @@ var {
   ListView,
   Image,
   TabBarIOS,
+  TouchableHighlight
 } = React;
 
 var TabBarItemIOS = TabBarIOS.Item;
@@ -25,6 +26,7 @@ var Instagrannar = React.createClass({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
+      selectedPicture: {}
     };
   },
   
@@ -38,7 +40,6 @@ var Instagrannar = React.createClass({
     var url = API_URL;
     url = url.replace('{lng}', lng);
     url = url.replace('{lat}', lat);
-    console.log('fetch', url);
     fetch(url)
       .then((response) => response.json())
       .then((responseData) => {
@@ -69,6 +70,7 @@ var Instagrannar = React.createClass({
           onPress={() => {
             this.setState({
               selectedTab: 'pictureTab',
+              selectedPicture: {}
             });
           }}>
         {this.renderPictureList()}
@@ -127,22 +129,31 @@ var Instagrannar = React.createClass({
   },
     
   renderPictureList: function () {
-    return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderPicture}
-        style={styles.listView}
-      />
-    );
+    if (this.state.selectedPicture.id === undefined) {
+      return (
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderPicture}
+          style={styles.listView}
+        />
+      );
+    }
+    
+    return this.renderSinglePicture(this.state.selectedPicture);
   },
 
   renderPicture: function(picture) {
     return (
-      <View style={styles.container} onPress={renderSinglePicture(picture)}>
-        <Image
-          source={{uri: picture.images.thumbnail.url}}
-          style={styles.thumbnail}
-        />
+      <View style={styles.container}>
+        <TouchableHighlight onPress={() => {this.setState({
+            selectedTab: 'pictureTab',
+            selectedPicture: picture
+          })}}>
+          <Image
+            source={{uri: picture.images.thumbnail.url}}
+            style={styles.thumbnail}
+          />
+        </TouchableHighlight>
         <View style={styles.rightContainer}>
           <Text style={styles.title}>@{picture.user.username}</Text>
           <Text style={styles.year}>Filter: {picture.filter}</Text>
@@ -154,8 +165,11 @@ var Instagrannar = React.createClass({
   renderSinglePicture: function(picture) {
     return (
       <View style={{flexDirection: 'row', height: 100, padding: 20}}>
-        <View style={{backgroundColor: 'blue', flex: 0.3}} />
-        <View style={{backgroundColor: 'red', flex: 0.5}} />
+        <Image
+            source={{uri: picture.images.standard_resolution.url}}
+            style={styles.picture}
+          />
+        <Text style={styles.pictureText}>@{picture.user.username}</Text>
       </View>
     );
   } 
@@ -184,6 +198,17 @@ var styles = StyleSheet.create({
   thumbnail: {
     width: 90,
     height: 90,
+  },
+  picture: {
+    left: 0,
+    width: 200,
+    height: 200,
+  },
+  pictureText: {
+    top: 210,
+    left: 0,
+    backgroundColor: '#FFFFFF',
+    color: '#303030'
   },
   listView: {
     paddingTop: 20,
