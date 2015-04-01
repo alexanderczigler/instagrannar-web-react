@@ -138,7 +138,7 @@ var Instagrannar = React.createClass({
 
   renderPicture: function(picture) {
     return (
-      <View style={styles.container}>
+      <View style={styles.container} onPress={renderSinglePicture(picture)}>
         <Image
           source={{uri: picture.images.thumbnail.url}}
           style={styles.thumbnail}
@@ -149,7 +149,17 @@ var Instagrannar = React.createClass({
         </View>
       </View>
     );
-  }
+  },
+
+  renderSinglePicture: function(picture) {
+    return (
+      <View style={{flexDirection: 'row', height: 100, padding: 20}}>
+        <View style={{backgroundColor: 'blue', flex: 0.3}} />
+        <View style={{backgroundColor: 'red', flex: 0.5}} />
+      </View>
+    );
+  } 
+
 });
 
 var styles = StyleSheet.create({
