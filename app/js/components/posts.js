@@ -8,6 +8,8 @@ import LocationStore from '../stores/LocationStore';
 import AdvertisementStore from '../stores/AdvertisementStore';
 import SuggestedLocationStore from '../stores/SuggestedLocationStore';
 
+var __hasRenderedAdv__ = false;
+
 module.exports = React.createClass({
   getStoreState: function () {
     return {
@@ -31,7 +33,6 @@ module.exports = React.createClass({
     LocationStore.listen(this._changePosition);
     PostStore.listen(this._onChange);
     SuggestedLocationStore.listen(this._onChange);
-
     LocationActions.setLocation('usersPosition');
   },
 
@@ -42,10 +43,8 @@ module.exports = React.createClass({
   },
 
   _onChange: function () {
-    console.log('_onChange',this);
     var newState = this.getStoreState();
     newState.isLoaded = true;
-
     this.setState(newState);
   },
 
@@ -59,8 +58,12 @@ module.exports = React.createClass({
 
   render: function () {
     var p = this.state.posts;
-    p.splice(this.randomPosition(p.length), 0, this.state.advertisement);
 
+    if (!__hasRenderedAdv__ && p.length > 0) {
+      __hasRenderedAdv__ = true;
+      p.splice(this.randomPosition(p.length), 0, this.state.advertisement);
+    }
+    
     var posts = p.map((post, i) => <Post key={i} {...post} onPostClick={this._onPostClick.bind(this, post)}></Post>);
     
     return (
