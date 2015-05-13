@@ -24,6 +24,7 @@ module.exports = React.createClass({
       disableDefaultUI: true,
       streetViewControl: false,
       zoomControl: true,
+      scrollwheel: false,
       zoomControlOptions: {
         style: google.maps.ZoomControlStyle.SMALL,
         position: google.maps.ControlPosition.RIGHT_BOTTOM
