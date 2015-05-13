@@ -1,17 +1,19 @@
 var alt = require('../../alt');
 var PostActions = require('../actions/PostActions');
 
+var _highlightedPostModel = {
+  id: '',
+  images: {
+    standard_resolution: {
+      url: ''
+    }
+  }
+};
+
 class PostStore {
   constructor() {
     this.posts = [];
-    this.highlightedPost = {
-      id: '',
-      images: {
-        standard_resolution: {
-          url: ''
-        }
-      }
-    };
+    this.highlightedPost = _highlightedPostModel;
 
     this.bindListeners({
       handleUpdatePosts: PostActions.UPDATE_POSTS,
@@ -35,7 +37,7 @@ class PostStore {
   }
   
   handleUnHighlightPost() {
-    this.highlightedPost = {};
+    this.highlightedPost = _highlightedPostModel;
   }
 
 }

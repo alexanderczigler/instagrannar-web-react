@@ -6,7 +6,6 @@ module.exports = React.createClass({
   getStoreState: function () {
     var highlighted = PostStore.getState().highlightedPost;
     var images = highlighted.images;
-
     return {
       id: highlighted.id,
       imageUrl: images.standard_resolution.url
@@ -30,13 +29,19 @@ module.exports = React.createClass({
   },
 
   reset: function () {
+    PostActions.unHighlightPost();
     this.setState({
-      imageUrl: false
+      id: false
     });
   },
 
   render: function () {
-    if (!this.state.imageUrl) {
+    if (!this.state) {
+      return (
+        <div />
+      );
+    }
+    if (!this.state.id) {
       return (
         <div />
       );
