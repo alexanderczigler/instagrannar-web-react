@@ -29,10 +29,21 @@ module.exports = React.createClass({
     this.setState(this.getStoreState());
   },
 
+  reset: function () {
+    this.setState({
+      imageUrl: false
+    });
+  },
+
   render: function () {
+    if (!this.state.imageUrl) {
+      return (
+        <div />
+      );
+    }
     return (
-      <div className="highlight-post-container">
-        <img src={this.state.imageUrl} />
+      <div className="highlighted-post-container">
+        <img src={this.state.imageUrl} onClick={this.reset} />
       </div>
     );
   }
