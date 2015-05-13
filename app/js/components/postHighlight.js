@@ -47,8 +47,8 @@ module.exports = React.createClass({
       );
     }
     return (
-      <div className="highlighted-post-container">
-        <img src={this.state.imageUrl} onClick={this.reset} />
+      <div className="highlighted-post-container" onClick={this.reset}>
+        <img src={this.state.imageUrl} />
       </div>
     );
   }
