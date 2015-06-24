@@ -18,7 +18,7 @@ module.exports = React.createClass({
     });
 
     var caption = picture.caption ? picture.caption.text : '';
-
+console.log('this', this);
     return (
       <ScrollView style={styles.singlePicture}>
         <Image
