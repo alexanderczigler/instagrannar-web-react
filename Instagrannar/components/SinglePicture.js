@@ -7,7 +7,11 @@ var {
   StyleSheet,
   Text,
   View,
+  Dimensions
 } = React;
+
+var Dimensions = require('Dimensions');
+var screenWidth = Dimensions.get('window').width;
 
 module.exports = React.createClass({
   render: function () {
@@ -18,7 +22,7 @@ module.exports = React.createClass({
     });
 
     var caption = picture.caption ? picture.caption.text : '';
-console.log('this', this);
+
     return (
       <ScrollView style={styles.singlePicture}>
         <Image
@@ -50,8 +54,8 @@ var styles = StyleSheet.create({
     marginBottom: 20
   },
   picture: {
-    width: 320,
-    height: 320,
+    width: screenWidth,
+    height: screenWidth,
   },
   hashtags: {
     marginTop: 10
