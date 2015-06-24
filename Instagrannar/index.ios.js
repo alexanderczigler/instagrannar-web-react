@@ -67,12 +67,13 @@ var Instagrannar = React.createClass({
   },
     
   _regionChange: function(r) {
-    // this.setState({
-    //   dataSource: new ListView.DataSource({
-    //     rowHasChanged: (row1, row2) => row1 !== row2,
-    //   })
-    // });
-    // this.fetchData(r.latitude, r.longitude);
+    console.log('aaa', r);
+    this.setState({
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2,
+      })
+    });
+    this.fetchData(r.latitude, r.longitude);
   },
     
   renderLoadingView: function() {
@@ -138,7 +139,7 @@ var Instagrannar = React.createClass({
         <TabBarItemIOS 
           name='mapTab'
           title='Karta'
-          icon={_ix_DEPRECATED('bookmarks')}
+          icon={{}}
           selected={this.state.selectedTab === 'mapTab'}
           onPress={() => {
             this.setState({
@@ -150,7 +151,7 @@ var Instagrannar = React.createClass({
         <TabBarItemIOS
           name='pictureTab'
           title='Bilder'
-          icon={_ix_DEPRECATED('mostViewed')}
+          icon={{}}
           selected={this.state.selectedTab === 'pictureTab'}
           onPress={() => {
             this.setState({
@@ -163,7 +164,7 @@ var Instagrannar = React.createClass({
         <TabBarItemIOS
           name='profileTab'
           title='Profil'
-          icon={_ix_DEPRECATED('contacts')}
+          icon={{}}
           selected={this.state.selectedTab === 'profileTab'}
           onPress={() => {
             this.setState({
