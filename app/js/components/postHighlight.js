@@ -23,7 +23,7 @@ module.exports = React.createClass({
   componentWillUnmount: function () {
     PostStore.unlisten(this._setHighlight);
   },
-  
+
   _setHighlight: function (store) {
     this.setState(this.getStoreState());
   },

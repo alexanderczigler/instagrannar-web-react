@@ -23,9 +23,8 @@ module.exports = React.createClass({
 
     return (
       <div className={classes} data-user={user}>
-          <!--img onClick={this.props.onPostClick} className="posts__image" src={image} -->
-          MEOW
-          <!--img className="posts__image posts__image--mobile" src={image} -->
+          <img onClick={this.props.onPostClick} className="posts__image posts__image--desktop" src={image} />
+          <img className="posts__image posts__image--mobile" src={image} />
       </div>
     );
   }

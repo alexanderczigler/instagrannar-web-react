@@ -23,7 +23,7 @@
 
   @include desktop {
     margin-bottom: 0;
-    
+
     &:nth-child(4n) { margin-right: 0; }
     &:nth-child(n+5) { margin-top: 1%; }
 
@@ -61,10 +61,16 @@
   }
 }
 
-.posts__image--mobile {
-  background-color: red;
+.posts__image--desktop {
   @include desktop {
-    
+    display: inline;
+  }
+  display: none;
+}
+
+.posts__image--mobile {
+  @include desktop {
+    display: none;
   }
 }
 
