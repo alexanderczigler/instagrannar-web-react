@@ -1,0 +1,19 @@
+// ------------------------------------------------------------
+// Posts
+//
+// ------------------------------------------------------------
+
+.instagrannar-map {
+  @include size(100%, 400px);
+  
+  position: relative;
+
+  &:before {
+    @include center(both);
+    @include circle(150px);
+
+    background: rgba(0,0,0, 0.3);
+    content: '';
+    z-index: $z-index-1;
+  }
+}

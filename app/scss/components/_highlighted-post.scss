@@ -1,0 +1,11 @@
+div.highlighted-post-container {
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  width: 100%;
+
+  img {
+  	width: 50%;
+    margin: 25% 25%;
+  }
+}

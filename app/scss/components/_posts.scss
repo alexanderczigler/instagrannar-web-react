@@ -1,0 +1,98 @@
+// ------------------------------------------------------------
+// Posts
+//
+// ------------------------------------------------------------
+
+.posts {
+  display: flex;
+  flex-wrap: wrap;
+  margin: $spacing * 2 auto;
+  max-width: $width;
+
+  @include mobile {
+    padding: $spacing;
+  }
+}
+
+.posts__post {
+  @include border-radius(8px);
+
+  margin-bottom: $spacing;
+  overflow: hidden;
+  position: relative;
+
+  @include desktop {
+    margin-bottom: 0;
+
+    &:nth-child(4n) { margin-right: 0; }
+    &:nth-child(n+5) { margin-top: 1%; }
+
+    &:before {
+      @include border-radius(8px);
+      @include position(top, left, 0, 0, absolute, true);
+      @include transition(background, 300ms, ease-in-out);
+
+      background: none;
+      content: '';
+      z-index: $z-index-1;
+    }
+
+    &:after {
+      @include border-radius(8px);
+      @include center(both);
+      @include transition(opacity, 300ms, ease-in-out);
+
+      color: #fff;
+      content: attr(data-user);
+      opacity: 0;
+      z-index: $z-index-2;
+    }
+
+    &:hover {
+      @include border-radius(8px);
+
+      .posts__image {
+        // @include transform('rotate(-5deg) scale(1.2)');
+      }
+
+      &:before { background: transparentize($color--accent, 0.2); }
+      &:after { opacity: 1; }
+    }
+  }
+}
+
+.posts__image--desktop {
+  @include desktop {
+    display: inline;
+  }
+  display: none;
+}
+
+.posts__image--mobile {
+  @include desktop {
+    display: none;
+  }
+}
+
+.posts__post--instagrannar {
+  background: rgb(0, 0, 0);
+
+  &:after {
+    @include center(both);
+
+    color: #fff;
+    content: attr(data-user);
+    opacity: 1;
+  }
+}
+
+.posts__post-caption {
+  color: #717A87;
+}
+
+.posts__image {
+  @include transition(all, 300ms, ease-in-out);
+
+  max-width: 100%;
+  vertical-align: middle;
+}

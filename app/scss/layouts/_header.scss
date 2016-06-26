@@ -1,0 +1,31 @@
+// ------------------------------------------------------------
+// Header
+//
+// ------------------------------------------------------------
+
+.header {
+  background: url('../images/bg.jpeg') center center no-repeat;
+  background-position: 0 -100px;
+  background-size: cover;
+  height: 400px;
+  position: relative;
+}
+
+.header__overlay {
+  @include position(top, left, 0, 0, absolute, true);
+
+  background: $color--overlay;
+}
+
+.header__title {
+  @include center(both);
+  
+  font-family: $font-family--brand;
+  font-size: $font-size--h1;
+  text-transform: uppercase;
+  z-index: $z-index-1;
+}
+
+.header__title-link {
+  color: $color--background !important;
+}

@@ -1,0 +1,54 @@
+// ------------------------------------------------------------
+// Loader
+//
+// ------------------------------------------------------------
+
+.loader__wrapper {
+  align-items: center;
+  display: flex;
+  height: 600px;
+  justify-content: center;
+}
+
+.loader {
+  @include gradient(#999, rgba(255, 255, 255, 0), #999);
+  @include animation(load3, 1.4s, linear, infinite);
+  @include border-radius(50%);
+  @include size(4em);
+
+  font-size: 10px;
+  margin: 5em auto;
+  position: relative;
+  text-indent: -9999em;
+}
+
+.loader:before {
+  @include border-radius('100% 0 0 0');
+  @include position(top, left, 0, 0);
+  @include size(50%);
+
+  background: #999;
+  content: '';
+}
+
+.loader:after {
+  @include border-radius(50%);
+  @include position(top, left, 0, 0);
+  @include size(75%);
+
+  background: #fff;
+  bottom: 0;
+  content: '';
+  margin: auto;
+  right: 0;
+}
+
+@include keyframes(load3) {
+  0% {
+    @include rotate(0deg);
+  }
+
+  100% {
+    @include rotate(360deg);
+  }
+}
